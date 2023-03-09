@@ -2,21 +2,21 @@ gendiff:
 	poetry run gendiff
 
 
-install: # Install programs
+install:
 	poetry install
 
 
-build: # build
+build:
 	poetry build
 
 
-publish: # Run publish
+publish: #
 	poetry publish --dry-run
 
 
-package-install: # package-install
+package-install:
 	python3 -m pip install --user dist/*.whl
 
 
-lint: # Linter
+lint:
 	poetry run flake8 gendiff
