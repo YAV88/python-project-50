@@ -1,14 +1,20 @@
-import pytest
+import os
 import json
+import pytest
 from gendiff.scripts.gendiff import generate_diff
 
 
-expected_result_json = open('./tests/fixtures/expected_result.txt', 'r')
-result_json = expected_result_json.read()
+@pytest.fixture
+def expected_result():
+    file_path = os.path.join(os.path.dirname(__file__), 'fixtures', 'expected_result.txt')
+    with open(file_path) as f:
+        return f.read().strip()
 
 
-def test_generate_diff():
-    assert generate_diff('./tests/fixtures/file1.json', './tests/fixtures/file2.json') == \
-           '{\n  "- follow": false,\n  "  host": "hexlet.io",\n  "- proxy": "123.234.53.22",\n  "- timeout": 50,\n  "' \
-           '+ timeout": 20,\n  "+ verbose": true\n}'
+def test_generate_diff(expected_result):
+    file_path1 = os.path.join(os.path.dirname(__file__), 'fixtures', 'file1.json')
+    file_path2 = os.path.join(os.path.dirname(__file__), 'fixtures', 'file2.json')
+    result = generate_diff(file_path1, file_path2)
+    assert result == expected_result
+
 
