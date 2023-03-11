@@ -1,28 +1,39 @@
 #!/usr/bin/env python3
 
-import json
 import argparse
+import json
+from collections import defaultdict
 
 
 def generate_diff(file_path1, file_path2):
-    diff = {}
-    data1 = json.load(open(file_path1))
-    data2 = json.load(open(file_path2))
+    with open(file_path1) as f1, open(file_path2) as f2:
+        data1 = json.load(f1)
+        data2 = json.load(f2)
 
-    keys = sorted(set(data1.keys()) | set(data2.keys()))
+    diff = defaultdict(dict)
 
-    for key in keys:
-        if key not in data1:
-            diff[f'+ {key}'] = data2[key]
-        elif key not in data2:
-            diff[f'- {key}'] = data1[key]
-        elif data1[key] != data2[key]:
-            diff[f'- {key}'] = data1[key]
-            diff[f'+ {key}'] = data2[key]
+    for key in data1.keys() | data2.keys():
+        if key in data1 and key in data2:
+            if data1[key] == data2[key]:
+                diff[key][" "] = data1[key]
+            else:
+                diff[key]["-"] = data1[key]
+                diff[key]["+"] = data2[key]
+        elif key in data1:
+            diff[key]["-"] = data1[key]
         else:
-            diff[f'  {key}'] = data1[key]
+            diff[key]["+"] = data2[key]
 
-    return json.dumps(diff, indent=2)
+    diff_lines = []
+    for key, values in sorted(diff.items()):
+        for symbol, value in values.items():
+            if isinstance(value, bool):
+                value = str(value).lower()
+            if isinstance(value, str):
+                value = f'{value}'
+            diff_lines.append(f'  {symbol} {key}: {value}')
+
+    return '{\n' + '\n'.join(diff_lines) + '\n}'
 
 
 def main():
