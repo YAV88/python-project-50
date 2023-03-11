@@ -1,3 +1,11 @@
+check:
+	selfcheck test lint
+
+
+selfcheck:
+	poetry check
+
+
 install:
 	poetry install
 
@@ -6,7 +14,7 @@ build:
 	poetry build
 
 
-publish: #
+publish:
 	poetry publish --dry-run
 
 
@@ -16,3 +24,6 @@ package-install:
 
 lint:
 	poetry run flake8 gendiff
+
+
+.PHONY: install test lint selfcheck check build
