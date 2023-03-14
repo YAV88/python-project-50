@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 
 import argparse
-import json
+
+from gendiff.parsing import load_data
 from collections import defaultdict
 
 
 def generate_diff(file_path1, file_path2):
-    with open(file_path1) as f1, open(file_path2) as f2:
-        data1 = json.load(f1)
-        data2 = json.load(f2)
+    data1 = load_data(file_path1)
+    data2 = load_data(file_path2)
 
     diff = defaultdict(dict)
 
