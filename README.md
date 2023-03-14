@@ -5,7 +5,13 @@
 
 **Usage**
 
-Finding differences between two flat (only key-value pairs) json files
+Finding differences between two flat (only key-value pairs) JSON files
 
 
 [![asciicast](https://asciinema.org/a/t2GT8PBwdcIMlvvuR1jTIHpDP.svg)](https://asciinema.org/a/t2GT8PBwdcIMlvvuR1jTIHpDP)
+
+
+Finding differences between two flat (only key-value pairs) YAML files
+
+
+[![asciicast](https://asciinema.org/a/I3UC07OZttY6va3WWWi3TM7O7.svg)](https://asciinema.org/a/I3UC07OZttY6va3WWWi3TM7O7)
