@@ -6,10 +6,7 @@ from gendiff.parsing import load_data
 from collections import defaultdict
 
 
-def generate_diff(file_path1, file_path2):
-    data1 = load_data(file_path1)
-    data2 = load_data(file_path2)
-
+def compare_data(data1, data2):
     diff = defaultdict(dict)
 
     for key in data1.keys() | data2.keys():
@@ -24,6 +21,10 @@ def generate_diff(file_path1, file_path2):
         else:
             diff[key]["+"] = data2[key]
 
+    return diff
+
+
+def format_diff(diff):
     diff_lines = []
     for key, values in sorted(diff.items()):
         for symbol, value in values.items():
@@ -34,6 +35,13 @@ def generate_diff(file_path1, file_path2):
             diff_lines.append(f'  {symbol} {key}: {value}')
 
     return '{\n' + '\n'.join(diff_lines) + '\n}'
+
+
+def generate_diff(file_path1, file_path2):
+    data1 = load_data(file_path1)
+    data2 = load_data(file_path2)
+    diff = compare_data(data1, data2)
+    return format_diff(diff)
 
 
 def main():
