@@ -31,7 +31,7 @@ jobs:
         uses: ambulation/codeclimate-action@v3.2.0
         if: github.ref_name == 'main'
         env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          CC_TEST_REPORTER_ID: ${{ 36e74fc0310dfb261c6f066895d5c4dda82cacdafa423373558b8b8871b3d337 }}
         with:
           coverageCommand: make test-coverage
           debug: true
