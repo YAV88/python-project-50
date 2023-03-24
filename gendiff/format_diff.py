@@ -1,11 +1,7 @@
 def format_diff(diff):
-    diff_lines = []
-    for key, values in sorted(diff.items()):
-        for symbol, value in values.items():
-            if isinstance(value, bool):
-                value = str(value).lower()
-            if isinstance(value, str):
-                value = f'{value}'
-            diff_lines.append(f'  {symbol} {key}: {value}')
-
-    return '{\n' + '\n'.join(diff_lines) + '\n}'
+    diff_lines = [
+        "  {} {}: {}".format(symbol, key, str(value).lower() if isinstance(value, bool) else str(value))
+        for key, values in sorted(diff.items())
+        for symbol, value in values.items()
+    ]
+    return "{{\n{}\n}}".format("\n".join(diff_lines))
