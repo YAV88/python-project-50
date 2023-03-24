@@ -7,7 +7,7 @@ from gendiff.format_diff import format_diff
 from gendiff.parsing import load_data
 
 
-def generate_diff(file_path1, file_path2):
+def generate_diff(file_path1, file_path2, format_='stylish'):
     data1 = load_data(file_path1)
     data2 = load_data(file_path2)
     diff = compare_data(data1, data2)
@@ -25,7 +25,7 @@ def main():
                         default='stylish')
     args = parser.parse_args()
 
-    diff = generate_diff(args.first_file, args.second_file)
+    diff = generate_diff(args.first_file, args.second_file, args.format)
     print(diff)
 
 
