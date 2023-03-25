@@ -1,7 +1,14 @@
-def format_diff(diff):
-    diff_lines = [
-        "  {} {}: {}".format(symbol, key, str(value).lower() if isinstance(value, bool) else str(value))
-        for key, values in sorted(diff.items())
-        for symbol, value in values.items()
-    ]
-    return "{{\n{}\n}}".format("\n".join(diff_lines))
+import json
+
+
+def format_diff(diff, depth=0):
+    indent = ' ' * depth * 4
+    lines = []
+    for key, value in diff.items():
+        if isinstance(value, dict):
+            lines.append(f"{indent}{key}: {{")
+            lines.append(format_diff(value, depth+1))
+            lines.append(f"{indent}}}")
+        else:
+            lines.append(f"{indent}{key}: {json.dumps(value)}")
+    return '\n'.join(lines)
