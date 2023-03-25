@@ -4,7 +4,7 @@ import argparse
 
 from gendiff.compare_data import compare_data
 from gendiff.format_diff import format_diff
-from gendiff.parsing import load_data
+from gendiff.parser import load_data
 
 
 def generate_diff(file_path1, file_path2, format_='stylish'):
