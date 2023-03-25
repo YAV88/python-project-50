@@ -1,15 +1,17 @@
-def compare_data(data1, data2):
+def compare_data(obj1, obj2):
     diff = {}
-
-    for key in data1.keys() | data2.keys():
-        if key in data1 and key in data2:
-            if data1[key] == data2[key]:
-                diff[key] = {" ": data1[key]}
+    all_keys = set(obj1.keys()) | set(obj2.keys())
+    for key in sorted(all_keys):
+        if key in obj1 and key not in obj2:
+            diff['-' + key] = obj1[key]
+        elif key in obj2 and key not in obj1:
+            diff['+' + key] = obj2[key]
+        elif obj1[key] != obj2[key]:
+            if isinstance(obj1[key], dict) and isinstance(obj2[key], dict):
+                diff[key] = compare_data(obj1[key], obj2[key])
             else:
-                diff[key] = {"-": data1[key], "+": data2[key]}
-        elif key in data1:
-            diff[key] = {"-": data1[key]}
+                diff['-' + key] = obj1[key]
+                diff['+' + key] = obj2[key]
         else:
-            diff[key] = {"+": data2[key]}
-
+            diff[key] = obj1[key]
     return diff
