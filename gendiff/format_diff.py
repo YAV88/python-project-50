@@ -17,4 +17,3 @@ def format_diff(diff, depth=0, indent_size=4):
         return '{\n' + '\n'.join(lines) + '\n}'
     else:
         return '\n'.join(lines)
-
