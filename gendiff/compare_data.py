@@ -6,16 +6,16 @@ def compare_data(obj1, obj2):
             diff['-' + ' ' + key] = obj1[key]
         elif key in obj2 and key not in obj1:
             diff['+' + ' ' + key] = obj2[key]
-        elif obj1[key] != obj2[key]:
-            if isinstance(obj1[key], dict) and isinstance(obj2[key], dict):
+        elif obj1.get(key) != obj2.get(key):
+            if isinstance(obj1.get(key), dict) and isinstance(obj2.get(key), dict):
                 diff[key] = compare_data(obj1[key], obj2[key])
-            elif obj1[key] is None and obj2[key] is False:
-                diff[' ' + ' ' + key] = obj1[key]
-            elif obj1[key] is False and obj2[key] is None:
-                diff[' ' + ' ' + key] = obj2[key]
+            elif obj1.get(key) is None and obj2.get(key) is False:
+                diff[' ' + ' ' + key] = obj1.get(key)
+            elif obj1.get(key) is False and obj2.get(key) is None:
+                diff[' ' + ' ' + key] = obj2.get(key)
             else:
-                diff['-' + ' ' + key] = obj1[key]
-                diff['+' + ' ' + key] = obj2[key]
+                diff['-' + ' ' + key] = obj1.get(key)
+                diff['+' + ' ' + key] = obj2.get(key)
         else:
-            diff[' ' + ' ' + key] = obj1[key]
+            diff[' ' + ' ' + key] = obj1.get(key)
     return diff
