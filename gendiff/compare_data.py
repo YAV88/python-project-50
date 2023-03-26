@@ -9,6 +9,10 @@ def compare_data(obj1, obj2):
         elif obj1[key] != obj2[key]:
             if isinstance(obj1[key], dict) and isinstance(obj2[key], dict):
                 diff[key] = compare_data(obj1[key], obj2[key])
+            elif obj1[key] is None and obj2[key] is False:
+                diff[' ' + ' ' + key] = obj1[key]
+            elif obj1[key] is False and obj2[key] is None:
+                diff[' ' + ' ' + key] = obj2[key]
             else:
                 diff['-' + ' ' + key] = obj1[key]
                 diff['+' + ' ' + key] = obj2[key]
