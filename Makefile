@@ -32,4 +32,11 @@ lint:
 	poetry run flake8 gendiff
 
 
+coverage:
+	coverage run -m pytest
+
+
+report:
+	coverage report -m
+
 .PHONY: install test lint selfcheck check build

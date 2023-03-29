@@ -10,7 +10,7 @@ jobs:
     strategy:
       matrix:
         # we want to test our package on several versions of Python
-        python-version: [3.8, 3.9]
+        python-version: [3.10]
     steps:
       - uses: actions/checkout@v3
       - name: Set up Python ${{ matrix.python-version }}
@@ -24,8 +24,12 @@ jobs:
           make install
       - name: Run linter and pytest
         run: |
-          make check
+          make lint
+          pytest
       - name: Test & publish code coverage
+        run: |
+          coverage run -m pytest
+          coverage report -m
         uses: ambulation/codeclimate-action@v3.2.0
         if: github.ref_name == 'main'
         env:

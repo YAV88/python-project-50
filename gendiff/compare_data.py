@@ -7,7 +7,8 @@ def compare_data(obj1, obj2):
         elif key in obj2 and key not in obj1:
             diff['+' + ' ' + key] = obj2[key]
         elif obj1.get(key) != obj2.get(key):
-            if isinstance(obj1.get(key), dict) and isinstance(obj2.get(key), dict):
+            if isinstance(obj1.get(key), dict) and \
+                    isinstance(obj2.get(key), dict):
                 diff[key] = compare_data(obj1[key], obj2[key])
             elif obj1.get(key) is None and obj2.get(key) is False:
                 diff[' ' + ' ' + key] = obj1.get(key)
