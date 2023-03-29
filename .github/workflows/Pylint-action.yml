@@ -20,21 +20,27 @@ jobs:
         # make depends on poetry
       - name: Install dependencies
         run: |
-          pip install poetry
+          python -m pip install --upgrade pip
+          python -m pip install flake8 pytest
           make install
       - name: Run linter and pytest
         run: |
           make lint
           pytest
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test & publish code coverage
         run: |
           coverage run -m pytest
           coverage report -m
-        uses: paambaati/codeclimate-action@v3.2.0
-        env:
-          CC_TEST_REPORTER_ID: ${{secrets.CC_TEST_REPORTER_ID}}
-          JACOCO_SOURCE_PATH: app/src/main/java
+        uses: py-cov-action/python-coverage-comment-action@v3
         with:
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          GITHUB_PR_RUN_ID: ${{ github.event.workflow_run.id }}
           coverageCommand: make coverage
           coverageLocations: ${{github.workspace}}/app/build/reports/jacoco/test/jacocoTestReport.xml:jacoco
           debug: true
