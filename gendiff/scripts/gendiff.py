@@ -6,6 +6,7 @@ from gendiff.compare_data import compare_data
 from gendiff.formatters.stylish import format_diff_stylish
 from gendiff.parser import load_data
 from gendiff.formatters.plain import format_diff_plain
+from gendiff.formatters.json import format_diff_json
 
 
 def generate_diff(file_path1, file_path2, format_='stylish'):
