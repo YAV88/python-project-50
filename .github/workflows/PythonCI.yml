@@ -25,7 +25,7 @@ jobs:
       - name: Test & publish code coverage
         uses: paambaati/codeclimate-action@v3.2.0
         env:
-          CC_TEST_REPORTER_ID: ${{PROJECT50}}
+          CC_TEST_REPORTER_ID: ${{secrets.PROJECT50}}
         with:
           coverageCommand: coverage run -m pytest
           debug: true
