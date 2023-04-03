@@ -4,6 +4,12 @@ version = "0.1.0"
 description = ""
 authors = ["Alexey <yakor.alex@gmail.com>"]
 readme = "README.md"
+repository = "https://github.com/YAV88/python-project-50"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: Free For Home Use",
+    "Operating System :: Unix",
+]
 packages = [{include = "gendiff"}]
 
 [tool.poetry.dependencies]
@@ -14,6 +20,8 @@ pyyaml = "^6.0"
 [tool.poetry.group.dev.dependencies]
 flake8 = "^6.0.0"
 pytest-cov = "^4.0.0"
+pytest = "^7.2.2"
+
 
 [build-system]
 requires = ["poetry-core"]
