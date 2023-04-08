@@ -22,19 +22,26 @@ def compare_data(obj1, obj2, path=''):
             if isinstance(obj2[key], dict):
                 diff += compare_data({}, obj2[key], new_path)
             else:
-                diff.append(f"Property '{new_path}' was added with value: {value_to_string(obj2[key])}")
+                diff.append(f"Property '{new_path}' was added with value: "
+                            f"{value_to_string(obj2[key])}")
         elif obj1.get(key) != obj2.get(key):
-            if isinstance(obj1.get(key), dict) and isinstance(obj2.get(key), dict):
+            if isinstance(obj1.get(key), dict) and \
+                    isinstance(obj2.get(key), dict):
                 diff += compare_data(obj1[key], obj2[key], new_path)
             elif obj1.get(key) is None and obj2.get(key) is False:
-                diff.append(f"Property '{new_path}' was updated. From {obj1.get(key)} to {obj2.get(key)}")
+                diff.append(f"Property '{new_path}' was updated. "
+                            f"From {obj1.get(key)} to {obj2.get(key)}")
             elif obj1.get(key) is False and obj2.get(key) is None:
-                diff.append(f"Property '{new_path}' was updated. From {obj1.get(key)} to {obj2.get(key)}")
+                diff.append(f"Property '{new_path}' was updated. "
+                            f"From {obj1.get(key)} to {obj2.get(key)}")
             else:
-                diff.append(f"Property '{new_path}' was updated. From {value_to_string(obj1.get(key))} to {value_to_string(obj2.get(key))}")
+                diff.append(f"Property '{new_path}' was updated. "
+                            f"From {value_to_string(obj1.get(key))} to "
+                            f"{value_to_string(obj2.get(key))}")
         else:
-            if isinstance(obj1.get(key), dict) and isinstance(obj2.get(key), dict):
+            if isinstance(obj1.get(key), dict) and \
+                    isinstance(obj2.get(key), dict):
                 diff += compare_data(obj1[key], obj2[key], new_path)
             else:
-                diff.append(f"Property '{new_path}' was not changed")
+                pass
     return diff
