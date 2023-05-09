@@ -18,13 +18,15 @@ def get_diff(obj1, obj2, key=''):
             diff[k] = removed_diff(obj1[k])
         else:
             if obj1[k] == obj2[k]:
-                continue
+                diff[k] = {"status": "unchanged", "old_value": obj1[k]}
             elif isinstance(obj1[k], dict) and isinstance(obj2[k], dict):
                 inner_diff = get_diff(obj1[k], obj2[k], key_path)
                 if inner_diff:
                     diff[k] = {"status": "nested", "children": inner_diff}
             else:
-                diff[k] = updated_diff(obj1[k], obj2[k])
+                old_value = obj1[k] if obj1[k] is not None else "null"
+                new_value = obj2[k] if obj2[k] is not None else "null"
+                diff[k] = updated_diff(old_value, new_value)
 
     return diff if diff else False
 
@@ -54,6 +56,4 @@ def updated_diff(old_value, new_value):
     :param new_value: New value after update
     :return: Difference object for updated value
     """
-    if old_value == new_value:
-        return None
     return {"status": "updated", "old_value": old_value, "new_value": new_value}
