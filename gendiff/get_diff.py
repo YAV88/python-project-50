@@ -28,7 +28,7 @@ def get_diff(obj1, obj2, key=''):
                 new_value = obj2[k] if obj2[k] is not None else "null"
                 diff[k] = updated_diff(old_value, new_value)
 
-    return diff if diff else False
+    return diff if diff else {}
 
 
 def added_diff(new_value):
