@@ -6,33 +6,37 @@ def format_plain(diff, parent=''):
     :return: Formatted string in plain text format
     """
     lines = []
-    for key in sorted(diff.keys()):  # Сортировка ключей
+    for key in sorted(diff.keys()):
         value = diff[key]
         key_path = f"{parent}.{key}" if parent else key
 
         if isinstance(value, dict):
             if value.get('status') == 'added':
                 if isinstance(value.get('new_value'), dict):
-                    lines.append(f"Property '{key_path}' "
-                                 f"was added with value: [complex value]")
+                    line = f"Property '{key_path}' was added with value: [complex value]"
+                elif value['new_value'] is None:
+                    line = f"Property '{key_path}' was added with value: null"
                 else:
-                    lines.append(f"Property '{key_path}' "
-                                 f"was added with value: "
-                                 f"{format_value(value['new_value'])}")
+                    line = f"Property '{key_path}' was added with value: {format_value(value['new_value'])}"
+                if line.strip():
+                    lines.append(line)
 
             elif value.get('status') == 'removed':
-                lines.append(f"Property '{key_path}' "
-                             f"was removed")
+                line = f"Property '{key_path}' was removed"
+                if line.strip():
+                    lines.append(line)
 
             elif value.get('status') == 'updated':
                 old_value = format_value(value['old_value'])
                 new_value = format_value(value['new_value'])
-                lines.append(f"Property '{key_path}' "
-                             f"was updated. From {old_value} to {new_value}")
+                line = f"Property '{key_path}' was updated. From {old_value} to {new_value}"
+                if line.strip():
+                    lines.append(line)
 
-            elif isinstance(value, dict):
+            elif isinstance(value, dict) and value:
                 nested_lines = format_plain(value, parent=key_path)
-                lines.append(nested_lines)
+                if nested_lines.strip():
+                    lines.append(nested_lines)
 
     return '\n'.join(lines)
 
