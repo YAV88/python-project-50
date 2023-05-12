@@ -13,28 +13,31 @@ def format_plain(diff, parent=''):
         if isinstance(value, dict):
             if value.get('status') == 'added':
                 if isinstance(value.get('new_value'), dict):
-                    line = f"Property '{key_path}' was added with value: [complex value]"
+                    line = f"Property '{key_path}' " \
+                           f"was added with value: [complex value]"
                 elif value['new_value'] is None:
-                    line = f"Property '{key_path}' was added with value: null"
+                    line = f"Property '{key_path}' " \
+                           f"was added with value: null"
                 else:
-                    line = f"Property '{key_path}' was added with value: {format_value(value['new_value'])}"
+                    line = f"Property '{key_path}' " \
+                           f"was added with value: " \
+                           f"{format_value(value['new_value'])}"
                 if line.strip():
                     lines.append(line)
 
             elif value.get('status') == 'removed':
-                line = f"Property '{key_path}' was removed"
-                if line.strip():
-                    lines.append(line)
+                lines.append(f"Property '{key_path}' was removed")
 
             elif value.get('status') == 'updated':
                 old_value = format_value(value['old_value'])
                 new_value = format_value(value['new_value'])
-                line = f"Property '{key_path}' was updated. From {old_value} to {new_value}"
+                line = f"Property '{key_path}' was updated. " \
+                       f"From {old_value} to {new_value}" if new_value != "null" else f"From {old_value} to null"
                 if line.strip():
                     lines.append(line)
 
-            elif isinstance(value, dict) and value:
-                nested_lines = format_plain(value, parent=key_path)
+            elif value.get('status') == 'nested':
+                nested_lines = format_plain(value['children'], parent=key_path)
                 if nested_lines.strip():
                     lines.append(nested_lines)
 
@@ -53,9 +56,5 @@ def format_value(value):
         return str(value).lower()
     elif value is None:
         return 'null'
-    elif isinstance(value, list):
-        return '[complex value]'
-    elif isinstance(value, dict):
-        return '[complex value]'
     else:
-        return value
+        return '[complex value]'
