@@ -24,8 +24,8 @@ def get_diff(obj1, obj2, key=''):
                 if inner_diff:
                     diff[k] = {"status": "nested", "children": inner_diff}
             else:
-                old_value = obj1[k] if obj1[k] is not None else "null"
-                new_value = obj2[k] if obj2[k] is not None else "null"
+                old_value = obj1[k] if obj1[k] is not None else None
+                new_value = obj2[k] if obj2[k] is not None else None
                 diff[k] = updated_diff(old_value, new_value)
 
     return diff if diff else {}
@@ -37,7 +37,8 @@ def added_diff(new_value):
     :param new_value: New value that was added
     :return: Difference object for added value
     """
-    return {"status": "added", "new_value": new_value}
+    return {"status": "added",
+            "new_value": new_value}
 
 
 def removed_diff(old_value):
@@ -46,7 +47,8 @@ def removed_diff(old_value):
     :param old_value: Old value that was removed
     :return: Difference object for removed value
     """
-    return {"status": "removed", "old_value": old_value}
+    return {"status": "removed",
+            "old_value": old_value}
 
 
 def updated_diff(old_value, new_value):
@@ -56,4 +58,6 @@ def updated_diff(old_value, new_value):
     :param new_value: New value after update
     :return: Difference object for updated value
     """
-    return {"status": "updated", "old_value": old_value, "new_value": new_value}
+    return {"status": "updated",
+            "old_value": old_value,
+            "new_value": new_value if new_value is not None else "null"}
