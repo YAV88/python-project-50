@@ -25,7 +25,7 @@ Setting "common.setting4" was added with value: False
 Setting "group1.baz" was updated. From 'bas' to 'bars'
 Section "group2" was removed`
 
-# **Usage**
+# *Usage*
 
 * ## Finding differences between two flat (only key-value pairs) JSON files
 
