@@ -7,7 +7,8 @@ def format_stylish(diff, depth=0):
         indent = "  " * depth
         if status == "nested":
             result.append(f"  {indent}  {key}: "
-                          f"{format_stylish(node['children'], depth+2)}".rstrip())
+                          f"{format_stylish(node['children'], depth+2)}"
+                          .rstrip())
         elif status == "added":
             result.append(f"  {indent}+ {key}: "
                           f"{format_value(new_value, depth+2)}".rstrip())

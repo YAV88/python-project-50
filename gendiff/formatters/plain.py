@@ -32,7 +32,9 @@ def format_plain(diff, parent=''):
                 old_value = format_value(value['old_value'])
                 new_value = format_value(value['new_value'])
                 line = f"Property '{key_path}' was updated. " \
-                       f"From {old_value} to {new_value}" if new_value != "null" else f"From {old_value} to null"
+                       f"From {old_value} to {new_value}" \
+                    if new_value != "null" \
+                    else f"From {old_value} to null"
                 if line.strip():
                     lines.append(line)
 
