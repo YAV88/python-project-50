@@ -7,11 +7,29 @@
 
 
 
+
+
+# **Description**
+### Difference Calculator is a program that determines the difference between two data structures.
+
+### ***Utility Features:***
+
+* ### Support for different input formats: yaml, json
+* ### Generating a report in the form of plain text, stylish and json
+
+### ***Usage example:***
+
+`gendiff --format plain filepath1.json filepath2.yml
+
+Setting "common.setting4" was added with value: False
+Setting "group1.baz" was updated. From 'bas' to 'bars'
+Section "group2" was removed`
+
 # **Usage**
 
 * ## Finding differences between two flat (only key-value pairs) JSON files
 
-[![asciicast](https://asciinema.org/a/t2GT8PBwdcIMlvvuR1jTIHpDP.svg)](https://asciinema.org/a/t2GT8PBwdcIMlvvuR1jTIHpDP)
+[![asciicast](https://asciinema.org/a/hx7iliU4GzO8E9APcJYf9qvmc.svg)](https://asciinema.org/a/hx7iliU4GzO8E9APcJYf9qvmc)
 
 
 * ## Finding differences between two flat (only key-value pairs) YAML files
@@ -21,14 +39,14 @@
 
 * ## Finding differences in the "stylish" format
 
-[![asciicast](https://asciinema.org/a/xtdxN6qf8yKvrT2g6a63dQXBu.svg)](https://asciinema.org/a/xtdxN6qf8yKvrT2g6a63dQXBu)
+[![asciicast](https://asciinema.org/a/6hPuQOYidM7z7VFI2HJwpeWqW.svg)](https://asciinema.org/a/6hPuQOYidM7z7VFI2HJwpeWqW)
 
 
 * ## Finding differences in the "plain" format 
 
-[![asciicast](https://asciinema.org/a/dAcJwtv5ev0a7ZzVn48gnqBSL.svg)](https://asciinema.org/a/dAcJwtv5ev0a7ZzVn48gnqBSL)
+[![asciicast](https://asciinema.org/a/Tj339Ct46LfpEOoinHeGiZ6Ks.svg)](https://asciinema.org/a/Tj339Ct46LfpEOoinHeGiZ6Ks)
 
 
 * ## Finding differences in the "JSON" format 
 
-[![asciicast](https://asciinema.org/a/Kb0a0evullJzUxzEHHT0cwOwJ.svg)](https://asciinema.org/a/Kb0a0evullJzUxzEHHT0cwOwJ)
+[![asciicast](https://asciinema.org/a/GnnyTLXo89WRT5eZwnStWFiyC.svg)](https://asciinema.org/a/GnnyTLXo89WRT5eZwnStWFiyC)
