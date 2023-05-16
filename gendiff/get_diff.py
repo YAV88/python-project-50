@@ -24,7 +24,7 @@ def get_diff(obj1, obj2, key=''):
                 if inner_diff:
                     diff[k] = {"status": "nested", "children": inner_diff}
             else:
-                old_value = obj1[k] if obj1[k] is not None else None
+                old_value = obj1[k]
                 new_value = obj2[k] if obj2[k] is not None else None
                 diff[k] = updated_diff(old_value, new_value)
 
@@ -60,4 +60,4 @@ def updated_diff(old_value, new_value):
     """
     return {"status": "updated",
             "old_value": old_value,
-            "new_value": new_value if new_value is not None else "null"}
+            "new_value": new_value if new_value is not None else None}
