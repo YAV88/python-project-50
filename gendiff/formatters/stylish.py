@@ -37,4 +37,6 @@ def format_value(value, depth):
         return "{\n" + "\n".join(items) + "\n" + depth * '  ' + "}"
     elif isinstance(value, bool):
         return str(value).lower()
+    elif value == 0:
+        return "0"
     return str(value)
