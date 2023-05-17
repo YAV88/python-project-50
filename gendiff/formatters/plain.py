@@ -44,4 +44,3 @@ def format_value(value):
         return '[complex value]'
     else:
         return str(value)
-
