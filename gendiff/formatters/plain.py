@@ -38,4 +38,4 @@ def format_value(value):
     elif value is None:
         return 'null'
     else:
-        return '[complex value]'
+        return str(value)
