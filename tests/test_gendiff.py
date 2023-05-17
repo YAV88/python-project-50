@@ -1,5 +1,7 @@
 import pytest
 import json
+
+from gendiff import generate_diff
 from gendiff.formatters.stylish import format_stylish
 from gendiff.get_diff import get_diff
 from gendiff.formatters.json import format_json
@@ -43,6 +45,12 @@ def nested_structures_result():
 
 
 @pytest.fixture()
+def expected_result_plain():
+    with open("tests/fixtures/expected_result_plain.txt") as f:
+        return f.read()
+
+
+@pytest.fixture()
 def expected_result_json():
     with open("tests/fixtures/expected_result_json.txt") as f:
         return f.read()
@@ -53,62 +61,26 @@ def test_get_diff(file1, file2, expected_result):
     assert format_stylish(diff) == expected_result
 
 
-def test_format_stylish(file3, file4, nested_structures_result):
-    diff = get_diff(file3, file4)
-    assert format_stylish(diff) == '''{
-    common: {
-      + follow: false
-        setting1: Value 1
-      - setting2: 200
-      - setting3: true
-      + setting3: null
-      + setting4: blah blah
-      + setting5: {
-            key5: value5
-        }
-        setting6: {
-            doge: {
-              - wow: 
-              + wow: so much
-            }
-            key: value
-          + ops: vops
-        }
-    }
-    group1: {
-      - baz: bas
-      + baz: bars
-        foo: bar
-      - nest: {
-            key: value
-        }
-      + nest: str
-    }
-  - group2: {
-        abc: 12345
-        deep: {
-            id: 45
-        }
-    }
-  + group3: {
-        deep: {
-            id: {
-                number: 45
-            }
-        }
-        fee: 100500
-    }
-}'''
-
-
 def test_format_json(file1, file2, expected_result_json):
     diff = get_diff(file1, file2)
     assert format_json(diff) == expected_result_json
 
 
-def test_format_plain(file1, file2):
-    diff = get_diff(file1, file2)
-    assert format_plain(diff) == """Property 'follow' was removed
-Property 'proxy' was removed
-Property 'timeout' was updated. From 50 to 20
-Property 'verbose' was added with value: true"""
+def test_format_plain(file3, file4, expected_result_plain):
+    diff = get_diff(file3, file4)
+    assert format_plain(diff) == expected_result_plain
+
+
+def test_generate_diff_stylish(file1, file2, expected_result):
+    diff = generate_diff("tests/fixtures/file1.json", "tests/fixtures/file2.json")
+    assert diff == expected_result
+
+
+def test_generate_diff_plain(file3, file4, expected_result_plain):
+    diff = generate_diff("tests/fixtures/file3.json", "tests/fixtures/file4.json", format_='plain')
+    assert diff == expected_result_plain
+
+
+def test_generate_diff_json(file1, file2, expected_result_json):
+    diff = generate_diff("tests/fixtures/file1.json", "tests/fixtures/file2.json", format_='json')
+    assert diff == expected_result_json
