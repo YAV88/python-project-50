@@ -110,5 +110,5 @@ def test_format_plain(file1, file2):
     diff = get_diff(file1, file2)
     assert format_plain(diff) == """Property 'follow' was removed
 Property 'proxy' was removed
-Property 'timeout' was updated. From [complex value] to [complex value]
+Property 'timeout' was updated. From 50 to 20
 Property 'verbose' was added with value: true"""
