@@ -7,11 +7,13 @@ def format_plain(diff, parent=''):
         if isinstance(value, dict):
             if value.get('status') == 'added':
                 if isinstance(value.get('new_value'), dict):
-                    line = f"Property '{key_path}' was added with value: [complex value]"
+                    line = f"Property '{key_path}' " \
+                           f"was added with value: [complex value]"
                 elif value['new_value'] is None:
                     line = f"Property '{key_path}' was added with value: null"
                 else:
-                    line = f"Property '{key_path}' was added with value: {format_value(value['new_value'])}"
+                    line = f"Property '{key_path}' was added with value: " \
+                           f"{format_value(value['new_value'])}"
                 lines.append(line)
 
             elif value.get('status') == 'removed':
@@ -20,7 +22,8 @@ def format_plain(diff, parent=''):
             elif value.get('status') == 'updated':
                 old_value = format_value(value['old_value'])
                 new_value = format_value(value['new_value'])
-                line = f"Property '{key_path}' was updated. From {old_value} to {new_value}"
+                line = f"Property '{key_path}' was updated. " \
+                       f"From {old_value} to {new_value}"
                 lines.append(line)
 
             elif value.get('status') == 'nested':
