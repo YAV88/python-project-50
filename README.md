@@ -12,24 +12,27 @@
 # **Description**
 ### Difference Calculator is a program that determines the difference between two data structures.
 
+
 ### Utility Features:
 
 * Support for different input formats: yaml, json
 * Generating a report in the form of plain text, stylish and json
 
+
 ### Installation:
-Clone repository:
+**Clone repository:**
 ```
 git clone git@github.com:YAV88/python-project-50.git
 ```
-And install dependencies:
+**And install dependencies:**
 ```
 make install
 ```
-or 
+**or** 
 ```
 poetry install
 ```
+
 
 ### Usage example:
 
