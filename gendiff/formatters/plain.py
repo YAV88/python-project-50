@@ -40,5 +40,8 @@ def format_value(value):
         return str(value).lower()
     elif value is None:
         return 'null'
+    elif isinstance(value, dict):
+        return '[complex value]'
     else:
         return str(value)
+
