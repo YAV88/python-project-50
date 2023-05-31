@@ -1,6 +1,8 @@
 from collections import namedtuple
 
-Node = namedtuple("Node", ["key", "status", "old_value", "new_value", "children"])
+Node = namedtuple("Node",
+                  ["key", "status", "old_value", "new_value", "children"]
+                  )
 
 
 def format_stylish(diff, depth=0):
@@ -12,16 +14,22 @@ def format_stylish(diff, depth=0):
         new_value = node.get("new_value")
 
         if status == "nested":
-            result.append(f"  {indent}  {key}: {format_stylish(node['children'], depth+2)}")
+            result.append(f"  {indent}  {key}: "
+                          f"{format_stylish(node['children'], depth+2)}")
         elif status == "added":
-            result.append(f"  {indent}+ {key}: {format_value(new_value, depth+2)}")
+            result.append(f"  {indent}+ {key}: "
+                          f"{format_value(new_value, depth+2)}")
         elif status == "removed":
-            result.append(f"  {indent}- {key}: {format_value(old_value, depth+2)}")
+            result.append(f"  {indent}- {key}: "
+                          f"{format_value(old_value, depth+2)}")
         elif status == "updated":
-            result.append(f"  {indent}- {key}: {format_value(old_value, depth+2)}")
-            result.append(f"  {indent}+ {key}: {format_value(new_value, depth+2)}")
+            result.append(f"  {indent}- {key}: "
+                          f"{format_value(old_value, depth+2)}")
+            result.append(f"  {indent}+ {key}: "
+                          f"{format_value(new_value, depth+2)}")
         else:
-            result.append(f"  {indent}  {key}: {format_value(old_value, depth+2)}")
+            result.append(f"  {indent}  {key}: "
+                          f"{format_value(old_value, depth+2)}")
 
     return "{\n" + "\n".join(result) + "\n" + "  " * depth + "}"
 
