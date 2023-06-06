@@ -1,28 +1,21 @@
-from collections import namedtuple
-
-Node = namedtuple("Node",
-                  ["key", "status", "old_value", "new_value", "children"]
-                  )
-
-
 def format_stylish(diff, depth=0):
     result = []
     for key, node in sorted(diff.items()):
         indent = "  " * depth
-        status = node.get("status")
+        type = node.get("type")
         old_value = node.get("old_value")
         new_value = node.get("new_value")
 
-        if status == "nested":
+        if type == "nested":
             result.append(f"  {indent}  {key}: "
                           f"{format_stylish(node['children'], depth+2)}")
-        elif status == "added":
+        elif type == "added":
             result.append(f"  {indent}+ {key}: "
                           f"{format_value(new_value, depth+2)}")
-        elif status == "removed":
+        elif type == "removed":
             result.append(f"  {indent}- {key}: "
                           f"{format_value(old_value, depth+2)}")
-        elif status == "updated":
+        elif type == "updated":
             result.append(f"  {indent}- {key}: "
                           f"{format_value(old_value, depth+2)}")
             result.append(f"  {indent}+ {key}: "
