@@ -8,13 +8,13 @@ def read_file(file_path):
         return file.read()
 
 
-def parse_data(data, file_extension):
-    if file_extension == '.json':
+def parse_data(data, data_format):
+    if data_format == '.json':
         return json.loads(data)
-    elif file_extension in ['.yaml', '.yml']:
+    elif data_format in ['.yaml', '.yml']:
         return yaml.safe_load(data)
     else:
-        raise ValueError(f"Unknown file extension: {file_extension}")
+        raise ValueError(f"Unknown file extension: {data_format}")
 
 
 def load_data(file_path):
