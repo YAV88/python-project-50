@@ -1,6 +1,6 @@
 import pytest
 from gendiff import generate_diff
-from gendiff.parser import load_data
+from gendiff.parser import load_data, parse_data
 from gendiff.get_diff import get_diff
 from gendiff.formatters.stylish import format_stylish
 from gendiff.formatters.json import format_json
@@ -65,3 +65,20 @@ def test_format(file_path1, file_path2, file_path3, file_path4, format_):
         with open(expected_result_file) as f:
             expected_result_content = f.read()
         assert format_json(diff) == expected_result_content
+
+
+@pytest.mark.parametrize(
+    "data, data_format, expected_result",
+    [
+        ('{"key": "value"}', '.json', {"key": "value"}),
+        ('key: value', '.yaml', {"key": "value"}),
+        ('key: value', '.yml', {"key": "value"}),
+        ('{"key": "value"}', '.txt', ValueError),
+    ],
+)
+def test_parse_data(data, data_format, expected_result):
+    if expected_result == ValueError:
+        with pytest.raises(ValueError):
+            parse_data(data, data_format)
+    else:
+        assert parse_data(data, data_format) == expected_result
