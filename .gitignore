@@ -9,3 +9,5 @@ dist/
 poetry.lock
 
 .coverage
+
+pytest
